@@ -1,0 +1,29 @@
+{
+  "name": "junior-blog-server",
+  "version": "1.0.0",
+  "author": "jKEeY <ilyaverst@yandex.ru>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "graphql": "^14.1.1",
+    "graphql-server-express": "^1.4.0",
+    "graphql-tools": "^4.0.4",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.7"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/runtime": "^7.1.5",
+    "babel-preset-latest": "^6.24.1",
+    "nodemon": "^1.18.9"
+  }
+}
