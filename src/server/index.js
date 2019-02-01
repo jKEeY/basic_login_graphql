@@ -15,20 +15,20 @@ import UserModel from '../models/user'
 // Import SECRET KEY
 import config from '../../config'
 
-const addUser = async (req, res) => {
-  const token = req.headers['authentication']
-  try {
-    const { user } = await jwt.verify(token, config.SECRET)
-    req.user = user
-  } catch (e) {
-    throw new Error(e)
-  }
-  res.next()
-}
-
 class ServerInit {
   start() {
     return new Promise((resolve, reject) => {
+      const addUser = async (req) => {
+        const token = req.headers.authorization;
+        try {
+          const { user } = await jwt.verify(token, config.SECRET);
+          req.user = user;
+        } catch (err) {
+          console.log(err);
+        }
+        req.next();
+      };
+
       const schema = makeExecutableSchema({
         typeDefs,
         resolvers
