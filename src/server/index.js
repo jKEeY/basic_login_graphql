@@ -15,19 +15,22 @@ import UserModel from '../models/user'
 // Import SECRET KEY
 import config from '../../config'
 
+const dev = process.env.NODE_ENV !== 'production'
+
+const addUser = async (req) => {
+  const token = req.headers.authorization;
+  try {
+    const { user } = await jwt.verify(token, config.SECRET);
+    req.user = user;
+  } catch (err) {
+    
+  }
+  req.next();
+};
+
 class ServerInit {
   start() {
     return new Promise((resolve, reject) => {
-      const addUser = async (req) => {
-        const token = req.headers.authorization;
-        try {
-          const { user } = await jwt.verify(token, config.SECRET);
-          req.user = user;
-        } catch (err) {
-          console.log(err);
-        }
-        req.next();
-      };
 
       const schema = makeExecutableSchema({
         typeDefs,
@@ -43,9 +46,13 @@ class ServerInit {
       }))
       app.use(addUser)
       app.use(cors('*')) // Permission to make requests from different hosts
-      app.use('/api', graphiqlExpress({ // used graphiql tools GET /api
-        endpointURL: '/graphql'
-      }))
+
+      if (dev) {
+        app.use('/api', graphiqlExpress({ // used graphiql tools GET /api
+          endpointURL: '/graphql'
+        }))
+      }
+      
       app.use('/graphql', 
         graphqlExpress(req => ({ // Initial http express graphQL
           schema, 
