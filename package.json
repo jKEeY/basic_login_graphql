@@ -4,7 +4,9 @@
   "author": "jKEeY <ilyaverst@yandex.ru>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index.js"
+    "dev": "nodemon --exec babel-node src/index.js",
+    "build": "babel src/ -d dist",
+    "start:production": "yarn build && NODE_ENV=production node dist/index.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.3",
